@@ -24,7 +24,7 @@ class ContactController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.create');
     }
 
     /**
@@ -35,7 +35,15 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $this->validate($request,['name'=>'required', 'meter'=>'required']);
+     
+        $contact = new Contact([ //User รับค่ามาจาก Model User.php
+            'name'=>$request->get('name'), 
+            'meter'=>$request->get('meter') 
+        ]);
+        $contact->save();
+        return redirect()->route('contact.create')->with('success', 'บันทึกข้อมูลเรียบร้อย');
     }
 
     /**
