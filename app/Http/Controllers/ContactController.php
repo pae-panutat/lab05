@@ -14,7 +14,21 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        // return view('user.index');
+        // $contact = Contact::all()->toArray();
+        // $data['chart_data'] = json_encode($contact);
+        // return view('user.index', compact('contact'));
+
+        $result = \DB::table('contacts')
+                    ->select('meter', 'created_at')
+                    ->orderBy('id', 'ASC')
+                    ->get();
+        return view('user.index')->with('result',json_encode($result, JSON_NUMERIC_CHECK));
+
+        // $month = array('Jan', 'Feb', 'Mar', 'Apr', 'May');
+        // $data  = array(1, 2, 3, 4, 5);
+        // return view('user.index',['Months' => $month, 'Data' => $data]);
+         
     }
 
     /**
